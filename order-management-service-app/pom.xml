@@ -11,7 +11,6 @@
 	</parent>
 	<groupId>com.order.management</groupId>
 	<artifactId>order-management-service-app</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>order-management-service-app</name>
 	<description>Demo project for Spring Boot</description>
 
