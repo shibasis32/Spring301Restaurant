@@ -6,8 +6,9 @@ package com.restaurant.search.service.dao;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.Repository;
+import org.springframework.data.repository.query.Param;
 
 import com.restaurant.search.service.model.Restaurant;
 
@@ -17,12 +18,13 @@ import com.restaurant.search.service.model.Restaurant;
  *
  */
 
-@Repository
-public interface RestaurantSearchRepository extends JpaRepository<Restaurant, Long> {
+//@Repository
+public interface RestaurantSearchRepository extends Repository<Restaurant, Long> {
 
 	List<Restaurant> findAll();
 
-	List<Restaurant> findByLocation(String location, Pageable pageable);
+	List<Restaurant> findByLocationOrDistanceOrCuisineOrBudgetOrRatingsOrName(String location, long distance, String cuisine, String budget, 
+			int ratings, String name, Pageable pageable);
 	
 	List<Restaurant> findByDistance(long distance, Pageable pageable);
 

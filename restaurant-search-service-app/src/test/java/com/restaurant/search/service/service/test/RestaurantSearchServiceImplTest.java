@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
@@ -65,16 +66,17 @@ public class RestaurantSearchServiceImplTest {
 	/**
 	 * request
 	 */
-	private List<Restaurant> restaurantsList;
+	//private List<Restaurant> restaurantsList;
 
 	/**
 	 * setup method for OrderManagementHandlerImplTest.
 	 */
 	@Before
 	public void setup() {
+		MockitoAnnotations.initMocks(this);
 		restaurant = new Restaurant();
 		request = new RestaurantRequest();
-		restaurantsList = new ArrayList<>();
+		//restaurantsList = new ArrayList<>();
 		request.setStartIndex(0);
 		request.setNoOfElements(10);
 		pageRequest = PageRequest.of(request.getStartIndex(), request.getNoOfElements());
@@ -82,7 +84,7 @@ public class RestaurantSearchServiceImplTest {
 
 	/**
 	 * JUNIT test method for getRestaurants by location.
-	 */
+	 *//*
 	@Test
 	public void getRestaurantsLocation() {
 		restaurant.setLocation("Global Vilalge");
@@ -91,10 +93,10 @@ public class RestaurantSearchServiceImplTest {
 		when(testRepository.findByLocation(Mockito.anyString(), Mockito.any(Pageable.class))).thenReturn(restaurantsList);
 		assertNotNull(testService.getRestaurants(request, pageRequest));
 	}
-
+*/
 	/**
 	 * JUNIT test method for getRestaurants by budget.
-	 */
+	 *//*
 	@Test
 	public void getRestaurantsBudget() {
 		restaurant.setBudget("Low");
@@ -102,11 +104,11 @@ public class RestaurantSearchServiceImplTest {
 		restaurantsList.add(restaurant);
 		when(testRepository.findByBudget(Mockito.anyString(), Mockito.any(Pageable.class))).thenReturn(restaurantsList);
 		assertNotNull(testService.getRestaurants(request, pageRequest));
-	}
+	}*/
 
 	/**
 	 * JUNIT test method for getRestaurants by getCuisine.
-	 */
+	 *//*
 	@Test
 	public void getRestaurantsCuisine() {
 		restaurant.setCuisine("Arabic");
@@ -114,11 +116,11 @@ public class RestaurantSearchServiceImplTest {
 		restaurantsList.add(restaurant);
 		when(testRepository.findByCuisine(Mockito.anyString(), Mockito.any(Pageable.class))).thenReturn(restaurantsList);
 		assertNotNull(testService.getRestaurants(request, pageRequest));
-	}
-
-	/**
+	}*/
+/*
+	*//**
 	 * JUNIT test method for getRestaurants by getName.
-	 */
+	 *//*
 	@Test
 	public void getRestaurantsName() {
 		restaurant.setName("Bihari mess");
@@ -128,9 +130,9 @@ public class RestaurantSearchServiceImplTest {
 		assertNotNull(testService.getRestaurants(request, pageRequest));
 	}
 
-	/**
+	*//**
 	 * JUNIT test method for getRestaurants by getRatings.
-	 */
+	 *//*
 	@Test
 	public void getRestaurantsRatings() {
 		restaurant.setRatings(4);
@@ -140,9 +142,9 @@ public class RestaurantSearchServiceImplTest {
 		assertNotNull(testService.getRestaurants(request, pageRequest));
 	}
 
-	/**
+	*//**
 	 * JUNIT test method for getRestaurants by getDistance.
-	 */
+	 *//*
 	@Test
 	public void getRestaurantsDistance() {
 		restaurant.setDistance(3);
@@ -152,9 +154,9 @@ public class RestaurantSearchServiceImplTest {
 		assertNotNull(testService.getRestaurants(request, pageRequest));
 	}
 
-	/**
+	*//**
 	 * JUNIT test method for getRestaurants exception.
-	 */
+	 *//*
 	@Test(expected = RuntimeException.class)
 	public void getRestaurantsException() {
 		restaurant.setLocation("Global Vilalge");
@@ -163,7 +165,7 @@ public class RestaurantSearchServiceImplTest {
 		when(testRepository.findByLocation(Mockito.anyString(), Mockito.any(Pageable.class))).thenThrow(new RuntimeException());
 		testService.getRestaurants(request, pageRequest);
 	}
-	
+	*/
 	/**
 	 * JUNIT test method for getRestaurants for null.
 	 */
@@ -173,5 +175,37 @@ public class RestaurantSearchServiceImplTest {
 		Restaurant newRestaurant = new Restaurant();
 		newRequest.setRestaurant(newRestaurant);
 		assertNotNull(testService.getRestaurants(newRequest, pageRequest));
+	}
+	
+	/**
+	 * Junit test method for getRestaurants based on any request parameter.
+	 */
+	@Test
+	public void getRestaurants() {
+		RestaurantRequest newRequest = new RestaurantRequest();
+		Restaurant newRestaurant = new Restaurant();
+		newRestaurant.setLocation("Global Vilalge");
+		newRequest.setRestaurant(newRestaurant);
+		List<Restaurant> newRestaurantsList = new ArrayList<>();
+		newRestaurantsList.add(newRestaurant);
+		Mockito.when(testRepository.findByLocationOrDistanceOrCuisineOrBudgetOrRatingsOrName(newRestaurant.getLocation(), newRestaurant.getDistance(), 
+				newRestaurant.getCuisine(), newRestaurant.getBudget(), newRestaurant.getRatings(), newRestaurant.getName(), pageRequest)).thenReturn(newRestaurantsList);
+		assertNotNull(testService.getRestaurants(newRequest, pageRequest));
+	}
+	
+	/**
+	 * JUNIT test method for getRestaurants for Exception.
+	 */
+	@Test(expected = RuntimeException.class)
+	public void getRestaurantsException() {
+		RestaurantRequest newRequest = new RestaurantRequest();
+		Restaurant newRestaurant = new Restaurant();
+		newRestaurant.setLocation("Global Vilalge");
+		newRequest.setRestaurant(newRestaurant);
+		List<Restaurant> newRestaurantsList = new ArrayList<>();
+		newRestaurantsList.add(newRestaurant);
+		Mockito.when(testRepository.findByLocationOrDistanceOrCuisineOrBudgetOrRatingsOrName(newRestaurant.getLocation(), newRestaurant.getDistance(), 
+				newRestaurant.getCuisine(), newRestaurant.getBudget(), newRestaurant.getRatings(), newRestaurant.getName(), pageRequest)).thenThrow(new RuntimeException());
+		testService.getRestaurants(newRequest, pageRequest);
 	}
 }

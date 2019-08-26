@@ -9,6 +9,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -37,12 +38,13 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 	/**
 	 * This method will get the restaurant details coming from the dao layer.
 	 */
+	@Cacheable("restaurants")
 	@Override
 	public RestaurantResponse getRestaurants(RestaurantRequest request, Pageable pageable) throws RestaurantNotFound{
 
-		List<Restaurant> restaurants = new ArrayList<Restaurant>();
+		List<Restaurant> restaurants = new ArrayList<>();
 		try {
-			if (request.getRestaurant().getLocation() != null && !request.getRestaurant().getLocation().isEmpty()) {
+			/*if (request.getRestaurant().getLocation() != null && !request.getRestaurant().getLocation().isEmpty()) {
 				restaurants = rsRepository.findByLocation(request.getRestaurant().getLocation(), pageable);
 			} else if (request.getRestaurant().getBudget() != null && !request.getRestaurant().getBudget().isEmpty()) {
 				restaurants = rsRepository.findByBudget(request.getRestaurant().getBudget(), pageable);
@@ -55,7 +57,9 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 				restaurants = rsRepository.findByRatings(request.getRestaurant().getRatings(), pageable);
 			} else if (!(request.getRestaurant().getDistance() == 0)) {
 				restaurants = rsRepository.findByDistance(request.getRestaurant().getDistance(), pageable);
-			}
+			}*/
+			restaurants = rsRepository.findByLocationOrDistanceOrCuisineOrBudgetOrRatingsOrName(request.getRestaurant().getLocation(), request.getRestaurant().getDistance(),
+					request.getRestaurant().getCuisine(), request.getRestaurant().getBudget(), request.getRestaurant().getRatings(), request.getRestaurant().getName(), pageable);
 		} catch (Exception e) {
 			throw new RuntimeException("Unknown Exception occured while fetching the data.", e);
 		}
