@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -128,6 +129,7 @@ public class OrderManagementServiceImpl implements OrderManagementService {
 	 * This method will get the orders list for a specific user.
 	 */
 	@Override
+	@Cacheable("orderDetails")
 	public OrderDetailsResponse viewOrders(String userName, Pageable pageable) {
 		OrderDetailsResponse response = new OrderDetailsResponse();
 		List<OrderDetails> getOrder = new ArrayList<>();

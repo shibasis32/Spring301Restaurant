@@ -38,7 +38,10 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 	/**
 	 * This method will get the restaurant details coming from the dao layer.
 	 */
-	@Cacheable("restaurants")
+	@Cacheable(value = "restaurantsName" ,
+			key = "{#request.restaurant.location, #request.restaurant.distance,"
+					+ "#request.restaurant.cuisine, #request.restaurant.budget,"
+					+ "#request.restaurant.ratings, #request.restaurant.name}")
 	@Override
 	public RestaurantResponse getRestaurants(RestaurantRequest request, Pageable pageable) throws RestaurantNotFound{
 
