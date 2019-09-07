@@ -15,5 +15,5 @@ import com.restaurant.search.service.model.response.RestaurantResponse;
  */
 public interface RestaurantSearchHandler {
 
-	public ResponseEntity<RestaurantResponse> getRestaurants(RestaurantRequest request);
+	public ResponseEntity<RestaurantResponse> getRestaurants(RestaurantRequest request, int pageNumber, int pageSize);
 }

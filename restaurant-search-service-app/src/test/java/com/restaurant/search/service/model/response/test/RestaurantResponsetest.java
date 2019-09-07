@@ -16,6 +16,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.restaurant.search.service.model.Restaurant;
+import com.restaurant.search.service.model.dto.RestaurantDto;
 import com.restaurant.search.service.model.response.RestaurantResponse;
 
 /**
@@ -30,16 +31,16 @@ public class RestaurantResponsetest {
 	/**
 	 * restaurants
 	 */
-	private List<Restaurant> restaurants;
+	private List<RestaurantDto> restaurants;
 	/**
 	 * setup method for RestaurantResponsetest.
 	 */
 	@Before
 	public void setup() {
-		restaurants = new ArrayList<Restaurant>();
-		Restaurant resto = new Restaurant();
+		restaurants = new ArrayList<>();
+		RestaurantDto resto = new RestaurantDto();
 		resto.setBudget("low");
-		Restaurant resto1 = new Restaurant();
+		RestaurantDto resto1 = new RestaurantDto();
 		resto1.setDistance(8);
 		restaurants.add(resto1);
 		restaurants.add(resto);
@@ -49,9 +50,7 @@ public class RestaurantResponsetest {
 	public void testToString() {
 		RestaurantResponse response = new RestaurantResponse();
 		response.setRestaurants(restaurants);
-		response.setMessage("Something");
 		response.toString();
-		assertTrue(response.getMessage() == "Something");
 		assertNotNull(response.getRestaurants());
 	}
 }

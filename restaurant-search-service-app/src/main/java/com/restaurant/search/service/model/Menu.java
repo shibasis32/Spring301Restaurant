@@ -3,10 +3,14 @@
  */
 package com.restaurant.search.service.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import io.swagger.annotations.ApiModel;
@@ -21,12 +25,12 @@ import io.swagger.annotations.ApiModelProperty;
 @Table(name = "menu")
 public class Menu {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long menuId;
-	@ApiModelProperty(notes = "Item name in the menu")
-	private String itemName;
-	@ApiModelProperty(notes = "Item price in the menu")
-	private double price;
+
+	@ApiModelProperty(notes = "list of items in a menu")
+	@OneToMany(fetch = FetchType.LAZY)
+	private List<Item> items;
 
 	/**
 	 * @return the menuId
@@ -43,31 +47,17 @@ public class Menu {
 	}
 
 	/**
-	 * @return the itemName
+	 * @return the items
 	 */
-	public String getItemName() {
-		return itemName;
+	public List<Item> getItems() {
+		return items;
 	}
 
 	/**
-	 * @param itemName the itemName to set
+	 * @param items the items to set
 	 */
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
-	}
-
-	/**
-	 * @return the price
-	 */
-	public double getPrice() {
-		return price;
-	}
-
-	/**
-	 * @param price the price to set
-	 */
-	public void setPrice(double price) {
-		this.price = price;
+	public void setItems(List<Item> items) {
+		this.items = items;
 	}
 
 	/*
@@ -80,10 +70,8 @@ public class Menu {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Menu [menuId=");
 		builder.append(menuId);
-		builder.append(", itemName=");
-		builder.append(itemName);
-		builder.append(", price=");
-		builder.append(price);
+		builder.append(", items=");
+		builder.append(items);
 		builder.append("]");
 		return builder.toString();
 	}

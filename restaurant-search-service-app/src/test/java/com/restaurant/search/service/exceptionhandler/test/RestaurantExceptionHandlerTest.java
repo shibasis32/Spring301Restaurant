@@ -12,7 +12,9 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.restaurant.search.service.exception.BadNullRequest;
 import com.restaurant.search.service.exception.RestaurantNotFound;
+import com.restaurant.search.service.exception.TypeNotFound;
 import com.restaurant.search.service.exceptionhandler.RestaurantExceptionHandler;
 
 /**
@@ -53,6 +55,24 @@ public class RestaurantExceptionHandlerTest {
 	@Test
 	public void testRuntimeException() {
 		RuntimeException re = new RuntimeException("Runtime Exception");
+		assertNotNull(testExceptionHandler.handleException(re));
+	}
+	
+	/**
+	 * JUNIT test method for BadNullRequest.
+	 */
+	@Test
+	public void testBadNullRequest() {
+		BadNullRequest re = new BadNullRequest("BadNullRequest Exception");
+		assertNotNull(testExceptionHandler.handleException(re));
+	}
+	
+	/**
+	 * JUNIT test method for TypeNotFound.
+	 */
+	@Test
+	public void testTypeNotFound() {
+		TypeNotFound re = new TypeNotFound("TypeNotFound Exception");
 		assertNotNull(testExceptionHandler.handleException(re));
 	}
 

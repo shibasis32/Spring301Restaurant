@@ -1,49 +1,19 @@
 /**
  * 
  */
-package com.restaurant.search.service.model.request;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+package com.restaurant.search.service.model.dto;
 
 /**
- * This class will be used to map the request data to our POJO.
+ * This is a DTO class which will hold the values of DAO objects.
  *
  */
-@ApiModel(description = "This model will contain the request values coming from the caller.")
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class RestaurantRequest {
-
-	/*
-	 * @ApiModelProperty(notes = "the restaurant values coming from the request")
-	 * private Restaurant restaurant;
-	 */
-
-	@ApiModelProperty(notes = "location of the restaurant")
+public class RestaurantDto {
 	private String location;
-
-	@ApiModelProperty(notes = "distance of the restaurant")
 	private long distance;
-
-	@ApiModelProperty(notes = "cuisine type of the restaurant")
 	private String cuisine;
-
-	@ApiModelProperty(notes = "the budget of the restaurant")
 	private String budget;
-
-	@ApiModelProperty(notes = "restaurant rating")
 	private int ratings;
-
-	@ApiModelProperty(notes = "restaurant name")
 	private String name;
-
-	@ApiModelProperty(notes = "item name")
-	private String itemName;
-
-	@ApiModelProperty(notes = "the search type")
-	private String type;
 
 	/**
 	 * @return the location
@@ -129,38 +99,10 @@ public class RestaurantRequest {
 		this.name = name;
 	}
 
-	/**
-	 * @return the itemName
-	 */
-	public String getItemName() {
-		return itemName;
-	}
-
-	/**
-	 * @param itemName the itemName to set
-	 */
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
-	}
-
-	/**
-	 * @return the type
-	 */
-	public String getType() {
-		return type;
-	}
-
-	/**
-	 * @param type the type to set
-	 */
-	public void setType(String type) {
-		this.type = type;
-	}
-
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("RestaurantRequest [location=");
+		builder.append("RestaurantDto [location=");
 		builder.append(location);
 		builder.append(", distance=");
 		builder.append(distance);
@@ -172,10 +114,6 @@ public class RestaurantRequest {
 		builder.append(ratings);
 		builder.append(", name=");
 		builder.append(name);
-		builder.append(", itemName=");
-		builder.append(itemName);
-		builder.append(", type=");
-		builder.append(type);
 		builder.append("]");
 		return builder.toString();
 	}

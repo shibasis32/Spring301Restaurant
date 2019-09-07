@@ -3,12 +3,16 @@
  */
 package com.restaurant.search.service.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,10 +24,11 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(description = " Entity used for Restaurant")
 @Entity
 @Table(name = "restaurant")
+@JsonIgnoreProperties("items")
 public class Restaurant {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long restaurantId;
 	@ApiModelProperty(notes = "location of the restaurant")
 	private String location;
@@ -37,10 +42,14 @@ public class Restaurant {
 	private int ratings;
 	@ApiModelProperty(notes = "restaurant name")
 	private String name;
-	
-	@ApiModelProperty(notes = "the menu of the restaurant")
-	@OneToOne
-	private Menu menu;
+
+	/*
+	 * @ApiModelProperty(notes = "the menu of the restaurant")
+	 * 
+	 * @OneToOne private Menu menu;
+	 */
+	@OneToMany(mappedBy = "restaurant")
+	private List<Item> items;
 
 	/**
 	 * @return the restaurantId
@@ -140,18 +149,12 @@ public class Restaurant {
 		this.name = name;
 	}
 
-	/**
-	 * @return the menu
-	 */
-	public Menu getMenu() {
-		return menu;
+	public List<Item> getItems() {
+		return items;
 	}
 
-	/**
-	 * @param menu the menu to set
-	 */
-	public void setMenu(Menu menu) {
-		this.menu = menu;
+	public void setItems(List<Item> items) {
+		this.items = items;
 	}
 
 	/*
@@ -174,8 +177,6 @@ public class Restaurant {
 		builder.append(ratings);
 		builder.append(", name=");
 		builder.append(name);
-		builder.append(", menu=");
-		builder.append(menu);
 		builder.append("]");
 		return builder.toString();
 	}
