@@ -57,8 +57,10 @@ public class RestaurantSearchControllerTest {
 	public void testPlaceOrder() {
 		RestaurantRequest request = new RestaurantRequest();
 		request.toString();
+		int pageNum = 2;
+		int size = 10;
 		ResponseEntity<RestaurantResponse> responseEntity = new ResponseEntity<>(HttpStatus.OK);
-		when(testHandler.getRestaurants(Mockito.any(RestaurantRequest.class))).thenReturn(responseEntity);
-		assertNotNull(testController.getRestaurants(request));
+		when(testHandler.getRestaurants(Mockito.any(RestaurantRequest.class), Mockito.anyInt(), Mockito.anyInt())).thenReturn(responseEntity);
+		assertNotNull(testController.getRestaurants(pageNum, size, request));
 	}
 }
