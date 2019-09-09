@@ -50,6 +50,7 @@ public class RestaurantExceptionHandlerTest {
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * JUNIT test method for RestaurantNotFound Null.
 	 */
 	@Test
@@ -156,6 +157,31 @@ public class RestaurantExceptionHandlerTest {
 	@Test
 	public void testTypeNotFoundCauseAndMessage() {
 		TypeNotFound re = new TypeNotFound("Error in message",new Throwable("Error"));
+=======
+	 * JUNIT test method for RuntimeException.
+	 */
+	@Test
+	public void testRuntimeException() {
+		RuntimeException re = new RuntimeException("Runtime Exception");
+		assertNotNull(testExceptionHandler.handleException(re));
+	}
+	
+	/**
+	 * JUNIT test method for BadNullRequest.
+	 */
+	@Test
+	public void testBadNullRequest() {
+		BadNullRequest re = new BadNullRequest("BadNullRequest Exception");
+		assertNotNull(testExceptionHandler.handleException(re));
+	}
+	
+	/**
+	 * JUNIT test method for TypeNotFound.
+	 */
+	@Test
+	public void testTypeNotFound() {
+		TypeNotFound re = new TypeNotFound("TypeNotFound Exception");
+>>>>>>> branch 'master' of https://github.com/shibasis32/Spring301Restaurant.git
 		assertNotNull(testExceptionHandler.handleException(re));
 	}
 
