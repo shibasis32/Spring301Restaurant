@@ -4,7 +4,6 @@
 package com.restaurant.search.service.model.response.test;
 
 import static org.junit.Assert.assertNotNull;
-<<<<<<< HEAD
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,20 +14,6 @@ import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
-=======
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import com.restaurant.search.service.model.Restaurant;
->>>>>>> branch 'master' of https://github.com/shibasis32/Spring301Restaurant.git
 import com.restaurant.search.service.model.dto.RestaurantDto;
 import com.restaurant.search.service.model.response.RestaurantResponse;
 

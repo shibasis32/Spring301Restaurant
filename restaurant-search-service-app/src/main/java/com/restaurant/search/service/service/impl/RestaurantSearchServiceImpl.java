@@ -18,10 +18,7 @@ import com.restaurant.search.service.dao.ItemSearchRepository;
 import com.restaurant.search.service.dao.RestaurantSearchRepository;
 import com.restaurant.search.service.exception.RestaurantNotFound;
 import com.restaurant.search.service.model.Restaurant;
-<<<<<<< HEAD
-=======
-import com.restaurant.search.service.model.request.RestaurantRequest;
->>>>>>> branch 'master' of https://github.com/shibasis32/Spring301Restaurant.git
+//github.com/shibasis32/Spring301Restaurant.git
 import com.restaurant.search.service.service.RestaurantSearchService;
 
 /**
@@ -56,11 +53,7 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 	 */
 	@Cacheable(value = "restaurantsName")
 	@Override
-<<<<<<< HEAD
 	public List<Restaurant> getRestaurants(int pageNumber, int pageSize)
-=======
-	public List<Restaurant> getRestaurants(RestaurantRequest request, int pageNumber, int pageSize)
->>>>>>> branch 'master' of https://github.com/shibasis32/Spring301Restaurant.git
 			throws RestaurantNotFound {
 		List<Restaurant> restaurants = new ArrayList<>();
 		try {

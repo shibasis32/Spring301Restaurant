@@ -67,7 +67,6 @@ public class RestaurantSearchHandlerImpl implements RestaurantSearchHandler {
 			rp = RestaurantParameter.valueOf(request.getType().toUpperCase());
 		} catch (IllegalArgumentException  e) {
 			log.error(e.getMessage());
-<<<<<<< HEAD
 			throw new TypeNotFound("Please enter a valid type. Put ALL in the type to get list of all restaurants");
 		}
 		switch (rp) {
@@ -137,71 +136,6 @@ public class RestaurantSearchHandlerImpl implements RestaurantSearchHandler {
 		case ALL:
 			log.info("Getting all restaurants");
 			restaurants = rsService.getRestaurants(pageNumber, pageSize);
-=======
-			throw new TypeNotFound("Please enter a valid type");
-		}
-		switch (rp) {
-		case LOCATION:
-			log.info("Location");
-			if (request.getLocation() == null || StringUtils.isEmpty(request.getLocation())) {
-				throw new BadNullRequest("Please provide the location. Location cannot be null or empty");
-			}
-			restaurants = rsService.getByLocation(request.getLocation(), pageNumber, pageSize);
-			restaurantsDto = restaurants.stream().map(restaurant -> convertToDto(restaurant))
-					.collect(Collectors.toList());
-			break;
-		case DISTANCE:
-			log.info("Distance");
-			if (request.getDistance() == 0 || StringUtils.isEmpty(request.getDistance())) {
-				throw new BadNullRequest("Please provide the Distance. Distance cannot be null or empty");
-			}
-			restaurants = rsService.getByDistance(request.getDistance(), pageNumber, pageSize);
-			restaurantsDto = restaurants.stream().map(restaurant -> convertToDto(restaurant))
-					.collect(Collectors.toList());
-			break;
-		case RATING:
-			log.info("RATINGS");
-			if (request.getRatings() == 0 || StringUtils.isEmpty(request.getRatings())) {
-				throw new BadNullRequest("Please provide the Rating. Rating cannot be null or empty");
-			}
-			restaurants = rsService.getByRatings(request.getRatings(), pageNumber, pageSize);
-			restaurantsDto = restaurants.stream().map(restaurant -> convertToDto(restaurant))
-					.collect(Collectors.toList());
-			break;
-		case BUDGET:
-			log.info("BUDGET");
-			if (request.getBudget() == null || StringUtils.isEmpty(request.getBudget())) {
-				throw new BadNullRequest("Please provide the Budget. Budget cannot be null or empty");
-			}
-			restaurants = rsService.getByBudget(request.getBudget(), pageNumber, pageSize);
-			restaurantsDto = restaurants.stream().map(restaurant -> convertToDto(restaurant))
-					.collect(Collectors.toList());
-			break;
-		case CUISINE:
-			log.info("CUISINE");
-			if (request.getCuisine() == null || StringUtils.isEmpty(request.getCuisine())) {
-				throw new BadNullRequest("Please provide the Cuisine. Cuisine cannot be null or empty");
-			}
-			restaurants = rsService.getByCuisine(request.getCuisine(), pageNumber, pageSize);
-			restaurantsDto = restaurants.stream().map(restaurant -> convertToDto(restaurant))
-					.collect(Collectors.toList());
-			break;
-		case NAME:
-			log.info("NAME");
-			if (request.getName() == null || StringUtils.isEmpty(request.getName())) {
-				throw new BadNullRequest("Please provide the Name. Name cannot be null or empty");
-			}
-			restaurants = rsService.getByName(request.getName(), pageNumber, pageSize);
-			restaurantsDto = restaurants.stream().map(restaurant -> convertToDto(restaurant))
-					.collect(Collectors.toList());
-			break;
-		case ITEMNAME:
-			log.info("ITEM");
-			if (request.getItemName() == null || StringUtils.isEmpty(request.getItemName())) {
-				throw new BadNullRequest("Please provide the Item Name. Item Name cannot be null or empty");
-			}
-			restaurants = rsService.getByItem(request.getItemName(), pageNumber, pageSize);
->>>>>>> branch 'master' of https://github.com/shibasis32/Spring301Restaurant.git
 			restaurantsDto = restaurants.stream().map(restaurant -> convertToDto(restaurant))
 					.collect(Collectors.toList());
 			break;
