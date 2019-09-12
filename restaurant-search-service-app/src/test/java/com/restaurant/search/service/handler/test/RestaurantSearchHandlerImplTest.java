@@ -21,6 +21,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.restaurant.search.service.enums.RestaurantParameter;
 import com.restaurant.search.service.exception.BadNullRequest;
+import com.restaurant.search.service.exception.ItemNotFound;
 import com.restaurant.search.service.exception.TypeNotFound;
 import com.restaurant.search.service.handler.handlerImpl.RestaurantSearchHandlerImpl;
 import com.restaurant.search.service.model.Restaurant;
@@ -81,6 +82,40 @@ public class RestaurantSearchHandlerImplTest {
 		restaurants = new ArrayList<>();
 	}
 
+	/**
+	 * JUNIT test method for getItemsPrice.
+	 */
+	@Test
+	public void testGetItemsPrice() {
+		List<Long> itemIds = new ArrayList<>();
+		itemIds.add(new Long(2));
+		itemIds.add(new Long(1));
+		
+		List<Double> itemsPrices = new ArrayList<>();
+		itemsPrices.add(new Double(2));
+		itemsPrices.add(new Double(1));
+		when(testService.getItemsPrice(Mockito.anyList()))
+				.thenReturn(itemsPrices);
+		assertNotNull(testHandler.getItemsPrice(itemIds));
+	}
+	
+	/**
+	 * JUNIT test method for getItemsPrice ItemsNotFound.
+	 */
+	@Test(expected = ItemNotFound.class)
+	public void testGetItemsPriceNotFound() {
+		List<Long> itemIds = new ArrayList<>();
+		itemIds.add(new Long(2));
+		itemIds.add(new Long(1));
+		
+		List<Double> itemsPrices = new ArrayList<>();
+	//	itemsPrices.add(new Double(2));
+	//	itemsPrices.add(new Double(1));
+		when(testService.getItemsPrice(Mockito.anyList()))
+				.thenReturn(itemsPrices);
+		assertNotNull(testHandler.getItemsPrice(itemIds));
+	}
+	
 	/**
 	 * JUNIT test method for getRestaurantsByLocation.
 	 */

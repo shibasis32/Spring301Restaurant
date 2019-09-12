@@ -453,4 +453,36 @@ public class RestaurantSearchServiceImplTest {
 		when(testRepository.findAll()).thenReturn(restaurantsList);
 		assertNotNull(testService.getRestaurants(pageNumber, pageSize));
 	}
+	
+	/**
+	 * JUNIT test method for getItemsPrice.
+	 */
+	@Test
+	public void testGetItemsPrice() {
+		List<Long> itemIds = new ArrayList<>();
+		itemIds.add(new Long(2));
+		itemIds.add(new Long(1));
+		
+		List<Double> itemsPrices = new ArrayList<>();
+		itemsPrices.add(new Double(2));
+		itemsPrices.add(new Double(1));
+		when(iRepository.findItemPrices(Mockito.anyList())).thenReturn(itemsPrices);
+		assertNotNull(testService.getItemsPrice(itemIds));
+	}
+	
+	/**
+	 * JUNIT test method for getItemsPrice Exception.
+	 */
+	@Test(expected = RuntimeException.class)
+	public void testGetItemsPriceException() {
+		List<Long> itemIds = new ArrayList<>();
+		itemIds.add(new Long(2));
+		itemIds.add(new Long(1));
+		
+		/*List<Double> itemsPrices = new ArrayList<>();
+		itemsPrices.add(new Double(2));
+		itemsPrices.add(new Double(1));*/
+		when(iRepository.findItemPrices(Mockito.anyList())).thenThrow(new RuntimeException());
+		assertNotNull(testService.getItemsPrice(itemIds));
+	}
 }

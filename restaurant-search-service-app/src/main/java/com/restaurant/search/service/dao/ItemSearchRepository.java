@@ -27,4 +27,7 @@ public interface ItemSearchRepository extends Repository<Item, Long>{
             "i.itemName = :itemName"
     )
 	List<Restaurant> findByItemName(@Param("itemName") String itemName);
+	
+	@Query("SELECT i.price FROM Item i WHERE i.itemId IN (:itemids)") 
+	List<Double> findItemPrices(@Param("itemids") List<Long> itemIds);
 }

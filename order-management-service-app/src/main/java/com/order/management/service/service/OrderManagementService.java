@@ -3,8 +3,6 @@
  */
 package com.order.management.service.service;
 
-import org.springframework.data.domain.Pageable;
-
 import com.order.management.service.model.request.OrderRequest;
 import com.order.management.service.model.request.UpdateOrderRequest;
 import com.order.management.service.model.response.OrderDetailsResponse;
@@ -23,6 +21,6 @@ public interface OrderManagementService {
 
 	OrderResponse cancelOrder(long id);
 
-	OrderDetailsResponse viewOrders(String userName, Pageable pageablePage);
+	OrderDetailsResponse viewOrders(String userName, int pageNumber, int size);
 
 }

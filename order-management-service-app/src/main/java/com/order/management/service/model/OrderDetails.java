@@ -44,7 +44,7 @@ public class OrderDetails {
 	@ApiModelProperty(notes = "list of the items ordered")
 	@ElementCollection
 	//@CollectionTable(name = "ItemIds", joinColumns = @JoinColumn())
-	private List<String> itemIds;
+	private List<Long> itemIds;
 
 	/**
 	 * @return the restaurantName
@@ -147,14 +147,14 @@ public class OrderDetails {
 	/**
 	 * @return the itemIds
 	 */
-	public List<String> getItemIds() {
+	public List<Long> getItemIds() {
 		return itemIds;
 	}
 
 	/**
 	 * @param itemIds the itemIds to set
 	 */
-	public void setItemIds(List<String> itemIds) {
+	public void setItemIds(List<Long> itemIds) {
 		this.itemIds = itemIds;
 	}
 

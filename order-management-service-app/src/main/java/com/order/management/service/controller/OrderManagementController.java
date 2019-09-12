@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.order.management.service.handler.OrderManagementHandler;
 import com.order.management.service.model.request.OrderRequest;
@@ -76,8 +77,8 @@ public class OrderManagementController {
 	 * @param endIndex - the number of elements to be displayed in one page
 	 * @return OrderResponse
 	 */
-	@RequestMapping(value = "/viewOrder/{username}/{start}/{end}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<OrderDetailsResponse> viewOrders(@PathVariable("username") String userName, @PathVariable("start") int startIndex, @PathVariable("end") int endIndex) {
-		return omHandler.viewOrders(userName, startIndex, endIndex);
+	@RequestMapping(value = "/viewOrder/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<OrderDetailsResponse> viewOrders(@PathVariable(name = "username", required = true) String userName, @RequestParam(name = "pagenum", defaultValue = "0") int pageNumber, @RequestParam(name = "size", defaultValue = "0") int size) {
+		return omHandler.viewOrders(userName, pageNumber, size);
 	}
 }

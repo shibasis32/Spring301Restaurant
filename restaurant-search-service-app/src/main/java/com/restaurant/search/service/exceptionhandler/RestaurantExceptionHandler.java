@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.restaurant.search.service.exception.BadNullRequest;
+import com.restaurant.search.service.exception.ItemNotFound;
 import com.restaurant.search.service.exception.RestaurantNotFound;
 import com.restaurant.search.service.exception.TypeNotFound;
 import com.restaurant.search.service.model.RestaurantErrorResponse;
@@ -64,6 +65,19 @@ public class RestaurantExceptionHandler {
 		RestaurantErrorResponse error = new RestaurantErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), exc.getMessage(),
 				System.currentTimeMillis());
 		return new ResponseEntity<RestaurantErrorResponse>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	/**
+	 * Method to handle Item Not found exception.
+	 * 
+	 * @param prodExcep
+	 * @return - the Restaurant Error response with the HTTPStatus
+	 */
+	@ExceptionHandler
+	public ResponseEntity<RestaurantErrorResponse> handleException(ItemNotFound prodExcep) {
+		RestaurantErrorResponse error = new RestaurantErrorResponse(HttpStatus.NOT_FOUND.value(),
+				prodExcep.getMessage(), System.currentTimeMillis());
+		return new ResponseEntity<RestaurantErrorResponse>(error, HttpStatus.NOT_FOUND);
 	}
 
 }

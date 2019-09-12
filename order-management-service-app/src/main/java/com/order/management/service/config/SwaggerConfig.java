@@ -5,6 +5,7 @@ package com.order.management.service.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -28,4 +29,10 @@ public class SwaggerConfig {
           .paths(PathSelectors.any())                          
           .build();                                           
     }
+	
+	@Bean
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
+	
 }

@@ -43,7 +43,7 @@ public class OrderManagementModelerImpltest {
 	/**
 	 * order
 	 */
-	private List<String> items;
+	private List<Long> items;
 	
 	/**
 	 * setup method for OrderManagementHandlerImplTest.
@@ -51,10 +51,10 @@ public class OrderManagementModelerImpltest {
 	@Before
 	public void setup() {
 		order = new OrderDetails();
-		List<String> items = new ArrayList<String>();
-		items.add("1");
-		items.add("4");
-		items.add("5");
+		List<Long> items = new ArrayList<>();
+		items.add((long) 1);
+		items.add((long) 4);
+		items.add((long) 5);
 		order.setItemIds(items);
 	}
 	

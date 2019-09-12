@@ -19,7 +19,10 @@ import com.order.management.service.model.OrderDetails;
  */
 @Repository
 public interface OrderManagementServiceRespository extends JpaRepository<OrderDetails, Long> {
+	
 	List<OrderDetails> findByUserName(String userName, Pageable pageable);
+	
+	List<OrderDetails> findByUserName(String userName);
 
 	Optional<OrderDetails> findByOrderDetailsId(long orderDetailsId);
 	

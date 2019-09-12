@@ -23,7 +23,7 @@ public class OrderRequest {
 	@ApiModelProperty(notes = "user who will place the order.")
 	private String userName;
 	@ApiModelProperty(notes = "number of items in the order.")
-	private List<String> itemIds;
+	private List<Long> itemIds;
 
 	/**
 	 * @return the restaurantName
@@ -56,14 +56,14 @@ public class OrderRequest {
 	/**
 	 * @return the itemIds
 	 */
-	public List<String> getItemIds() {
+	public List<Long> getItemIds() {
 		return itemIds;
 	}
 
 	/**
 	 * @param itemIds the itemIds to set
 	 */
-	public void setItemIds(List<String> itemIds) {
+	public void setItemIds(List<Long> itemIds) {
 		this.itemIds = itemIds;
 	}
 

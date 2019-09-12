@@ -29,4 +29,6 @@ public interface RestaurantSearchService {
 	public List<Restaurant> getByItem(String itemName, int pageNumber, int pageSize);
 
 	public List<Restaurant> getByBudget(String budget, int pageNumber, int pageSize);
+
+	public List<Double> getItemsPrice(List<Long> itemIds);
 }

@@ -6,6 +6,9 @@ package com.restaurant.search.service.controller.test;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import com.restaurant.search.service.controller.RestaurantSearchController;
 import com.restaurant.search.service.handler.RestaurantSearchHandler;
 import com.restaurant.search.service.model.request.RestaurantRequest;
+import com.restaurant.search.service.model.response.ItemWrapperResponse;
 import com.restaurant.search.service.model.response.RestaurantResponse;
 
 /**
@@ -62,5 +66,16 @@ public class RestaurantSearchControllerTest {
 		ResponseEntity<RestaurantResponse> responseEntity = new ResponseEntity<>(HttpStatus.OK);
 		when(testHandler.getRestaurants(Mockito.any(RestaurantRequest.class), Mockito.anyInt(), Mockito.anyInt())).thenReturn(responseEntity);
 		assertNotNull(testController.getRestaurants(pageNum, size, request));
+	}
+	
+	/**
+	 * JUNIT test method for getItemsPrice.
+	 */
+	@Test
+	public void testGetItemsPrice() {
+		List<Long> itemids = new ArrayList<>();
+		ResponseEntity<ItemWrapperResponse> responseEntity = new ResponseEntity<>(HttpStatus.OK);
+		when(testHandler.getItemsPrice(Mockito.anyList())).thenReturn(responseEntity);
+		assertNotNull(testController.getItemsPrice(itemids));
 	}
 }

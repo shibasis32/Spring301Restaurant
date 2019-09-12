@@ -3,9 +3,12 @@
  */
 package com.restaurant.search.service.handler;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 
 import com.restaurant.search.service.model.request.RestaurantRequest;
+import com.restaurant.search.service.model.response.ItemWrapperResponse;
 import com.restaurant.search.service.model.response.RestaurantResponse;
 
 /**
@@ -16,4 +19,6 @@ import com.restaurant.search.service.model.response.RestaurantResponse;
 public interface RestaurantSearchHandler {
 
 	public ResponseEntity<RestaurantResponse> getRestaurants(RestaurantRequest request, int pageNumber, int pageSize);
+
+	public ResponseEntity<ItemWrapperResponse> getItemsPrice(List<Long> itemids);
 }
