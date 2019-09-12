@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -65,6 +66,7 @@ public class OrderManagementServiceImpl implements OrderManagementService {
 	 * This method will place the order requested by user and save it to the DB.
 	 */
 	@Override
+	@CachePut(value = "orderDetails", key = "#request.userName")
 	public OrderResponse placeOrder(OrderRequest request) {
 		OrderResponse response = new OrderResponse();
 		log.info("Modelling the request object to entity object");
@@ -94,12 +96,13 @@ public class OrderManagementServiceImpl implements OrderManagementService {
 	 * This method will place the order requested by user and save it to the DB.
 	 */
 	@Override
+	@CachePut(value = "orderDetails", key = "#request.userName")
 	public OrderResponse updateOrder(UpdateOrderRequest request) {
 		OrderResponse response = new OrderResponse();
 		log.info("Modelling the request object to entity object");
 		OrderDetails order = omModeler.modelupdateRequestData(request);
 		log.info("Checking if the order id is present in the database");
-		Optional<OrderDetails> getOrder = omsRepository.findByOrderDetailsId(order.getOrderDetailsId());
+		Optional<OrderDetails> getOrder = omsRepository.findByUserNameAndOrderDetailsId(request.getUserName(), order.getOrderDetailsId());
 		if (!getOrder.isPresent()) {
 			log.info("No order found for the order ID: {}", order.getOrderDetailsId());
 			response.setMessage("No order found for the order ID " + order.getOrderDetailsId());
@@ -130,9 +133,10 @@ public class OrderManagementServiceImpl implements OrderManagementService {
 	 * DB.
 	 */
 	@Override
-	public OrderResponse cancelOrder(long id) {
+	@CachePut(value = "orderDetails", key = "#userName")
+	public OrderResponse cancelOrder(String userName, long id) {
 		OrderResponse response = new OrderResponse();
-		Optional<OrderDetails> getOrder = omsRepository.findByOrderDetailsId(id);
+		Optional<OrderDetails> getOrder = omsRepository.findByUserNameAndOrderDetailsId(userName, id);
 		if (!getOrder.isPresent()) {
 			log.info("No order found for the order ID: {}", id);
 			response.setMessage("No order found for the order ID " + id);
@@ -157,7 +161,7 @@ public class OrderManagementServiceImpl implements OrderManagementService {
 	 * This method will get the orders list for a specific user.
 	 */
 	@Override
-	@Cacheable("orderDetails")
+	@Cacheable(value = "orderDetails", key = "#userName")
 	public OrderDetailsResponse viewOrders(String userName, int pageNumber, int pageSize) {
 		OrderDetailsResponse response = new OrderDetailsResponse();
 		List<OrderDetails> getOrder = new ArrayList<>();

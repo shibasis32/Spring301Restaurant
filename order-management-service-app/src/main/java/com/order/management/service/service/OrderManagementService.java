@@ -19,7 +19,7 @@ public interface OrderManagementService {
 
 	OrderResponse updateOrder(UpdateOrderRequest request);
 
-	OrderResponse cancelOrder(long id);
+	OrderResponse cancelOrder(String userName, long id);
 
 	OrderDetailsResponse viewOrders(String userName, int pageNumber, int size);
 

@@ -93,14 +93,15 @@ public class OrderManagementHandlerImpl implements OrderManagementHandler{
 	 * @return OrderResponse
 	 */
 	@Override
-	public ResponseEntity<OrderResponse> cancelOrder(long id) {
-		if(id == 0 || StringUtils.isEmpty(id)) {
-			InvalidRequest ir = new InvalidRequest("Please provide the order Id to cancel an order.");
+	public ResponseEntity<OrderResponse> cancelOrder(String userName, long id) {
+		if((id == 0 || StringUtils.isEmpty(id))
+				&& (userName == null || StringUtils.isEmpty(userName))) {
+			InvalidRequest ir = new InvalidRequest("Please provide the username and order Id to cancel an order.");
 			log.error(ir.getMessage());
 			throw ir;
 		}
-		log.info("Calling the service to delete order with the order id: {}", id);
-		OrderResponse response = omService.cancelOrder(id);
+		log.info("Calling the service to delete order with the order id: {}", id," and username: {}", userName);
+		OrderResponse response = omService.cancelOrder(userName, id);
 		log.info("Getting the response after deleting the order from the service: {}", response);
 		return new ResponseEntity<OrderResponse>(response, HttpStatus.OK);
 	}

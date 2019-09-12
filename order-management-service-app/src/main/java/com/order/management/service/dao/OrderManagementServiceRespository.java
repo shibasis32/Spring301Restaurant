@@ -24,6 +24,6 @@ public interface OrderManagementServiceRespository extends JpaRepository<OrderDe
 	
 	List<OrderDetails> findByUserName(String userName);
 
-	Optional<OrderDetails> findByOrderDetailsId(long orderDetailsId);
+	Optional<OrderDetails> findByUserNameAndOrderDetailsId(String userName, long orderDetailsId);
 	
 }

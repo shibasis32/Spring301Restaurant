@@ -83,9 +83,10 @@ public class OrderManagementControllerTest {
 	@Test
 	public void testCancelOrder() {
 		long id = 2;
+		String userName = "user name";
 		ResponseEntity<OrderResponse> responseEntity = new ResponseEntity<>(HttpStatus.OK);
-		when(testHandler.cancelOrder(Mockito.anyLong())).thenReturn(responseEntity);
-		assertNotNull(testController.cancelOrder(id));
+		when(testHandler.cancelOrder(Mockito.anyString(), Mockito.anyLong())).thenReturn(responseEntity);
+		assertNotNull(testController.cancelOrder(userName, id));
 	}
 	
 	/**

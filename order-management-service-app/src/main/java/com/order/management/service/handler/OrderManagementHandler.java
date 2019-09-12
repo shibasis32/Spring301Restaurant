@@ -21,7 +21,7 @@ public interface OrderManagementHandler {
 
 	public ResponseEntity<OrderResponse> updateOrder(UpdateOrderRequest request);
 
-	public ResponseEntity<OrderResponse> cancelOrder(long id);
+	public ResponseEntity<OrderResponse> cancelOrder(String userName, long id);
 
 	public ResponseEntity<OrderDetailsResponse> viewOrders(String userName, int startIndex, int endIndex);
 }

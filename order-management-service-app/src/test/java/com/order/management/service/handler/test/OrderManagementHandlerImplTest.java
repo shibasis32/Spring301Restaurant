@@ -126,8 +126,9 @@ public class OrderManagementHandlerImplTest {
 	@Test
 	public void cancelOrder() {
 		long id = 3;
-		when(testService.cancelOrder(Mockito.anyLong())).thenReturn(response);
-		assertNotNull(testHandler.cancelOrder(id));
+		String userName = "user name";
+		when(testService.cancelOrder(Mockito.anyString(), Mockito.anyLong())).thenReturn(response);
+		assertNotNull(testHandler.cancelOrder(userName, id));
 	}
 	
 	/**
@@ -136,7 +137,8 @@ public class OrderManagementHandlerImplTest {
 	@Test(expected = InvalidRequest.class)
 	public void cancelOrderInvalid() {
 		long id = 0;
-		assertNotNull(testHandler.cancelOrder(id));
+		String userName = "";
+		assertNotNull(testHandler.cancelOrder(userName, id));
 	}
 	
 	/**

@@ -147,15 +147,18 @@ public class OrderManagementServiceImplTest {
 	@Test
 	public void testUpdateOrder() {
 		UpdateOrderRequest request = new UpdateOrderRequest();
+		request.setUserName("user Name");
+		request.setOrderDetailsId(1);
 		List<Long> items = new ArrayList<>();
 		items.add((long) 1);
 		items.add((long) 4);
 		items.add((long) 5);
 		order.setOrderDetailsId(1);
 		order.setItemIds(items);
-		when(restClient.callExternalService(Mockito.anyString(), Mockito.anyList())).thenReturn(itemResponse);
+		order.setUserName("user Name");
 		when(testOmModeler.modelupdateRequestData(Mockito.any(UpdateOrderRequest.class))).thenReturn(order);
-		when(testRepository.findByOrderDetailsId(order.getOrderDetailsId())).thenReturn(Optional.of(order));
+		when(testRepository.findByUserNameAndOrderDetailsId(Mockito.anyString(), Mockito.anyLong())).thenReturn(Optional.of(order));
+		when(restClient.callExternalService(Mockito.anyString(), Mockito.anyList())).thenReturn(itemResponse);
 		when(testRepository.save(Mockito.any(OrderDetails.class))).thenReturn(order);
 		assertNotNull(testService.updateOrder(request));
 	}
@@ -173,7 +176,7 @@ public class OrderManagementServiceImplTest {
 		order.setOrderDetailsId(1);
 		order.setItemIds(items);
 		when(testOmModeler.modelupdateRequestData(Mockito.any(UpdateOrderRequest.class))).thenReturn(order);
-		when(testRepository.findByOrderDetailsId(order.getOrderDetailsId())).thenReturn(Optional.of(order));
+		when(testRepository.findByUserNameAndOrderDetailsId(order.getUserName(), order.getOrderDetailsId())).thenReturn(Optional.of(order));
 		when(restClient.callExternalService(Mockito.anyString(), Mockito.anyList())).thenThrow(new RuntimeException());
 		testService.updateOrder(request);
 	}
@@ -191,7 +194,7 @@ public class OrderManagementServiceImplTest {
 		order.setOrderDetailsId(1);
 		order.setItemIds(items);
 		when(testOmModeler.modelupdateRequestData(Mockito.any(UpdateOrderRequest.class))).thenReturn(order);
-		when(testRepository.findByOrderDetailsId(Mockito.anyLong())).thenReturn(Optional.empty());
+		//when(testRepository.findByUserNameAndOrderDetailsId(Mockito.anyString(), Mockito.anyLong())).thenReturn(Optional.empty());
 		assertNotNull(testService.updateOrder(request));
 	}
 	
@@ -201,9 +204,10 @@ public class OrderManagementServiceImplTest {
 	@Test
 	public void cancelOrder() {
 		long id = 1;
-		when(testRepository.findByOrderDetailsId(Mockito.anyLong())).thenReturn(Optional.of(order));
+		String userName = "USER NAME";
+		when(testRepository.findByUserNameAndOrderDetailsId(Mockito.anyString(), Mockito.anyLong())).thenReturn(Optional.of(order));
 		when(testRepository.save(Mockito.any(OrderDetails.class))).thenReturn(order);
-		assertNotNull(testService.cancelOrder(id));
+		assertNotNull(testService.cancelOrder(userName, id));
 	}
 	
 	/**
@@ -212,9 +216,10 @@ public class OrderManagementServiceImplTest {
 	@Test(expected = RuntimeException.class)
 	public void cancelOrderException() {
 		long id = 1;
-		when(testRepository.findByOrderDetailsId(Mockito.anyLong())).thenReturn(Optional.of(order));
+		String userName = "USER NAME";
+		when(testRepository.findByUserNameAndOrderDetailsId(Mockito.anyString(), Mockito.anyLong())).thenReturn(Optional.of(order));
 		when(testRepository.save(Mockito.any(OrderDetails.class))).thenThrow(new RuntimeException());
-		testService.cancelOrder(id);
+		testService.cancelOrder(userName, id);
 	}
 	
 	/**
@@ -223,8 +228,9 @@ public class OrderManagementServiceImplTest {
 	@Test
 	public void cancelOrderEmpty() {
 		long id = 1;
-		when(testRepository.findByOrderDetailsId(Mockito.anyLong())).thenReturn(Optional.empty());
-		assertNotNull(testService.cancelOrder(id));
+		String userName = "USER NAME";
+		when(testRepository.findByUserNameAndOrderDetailsId(Mockito.anyString(), Mockito.anyLong())).thenReturn(Optional.empty());
+		assertNotNull(testService.cancelOrder(userName, id));
 	}
 	
 	/**

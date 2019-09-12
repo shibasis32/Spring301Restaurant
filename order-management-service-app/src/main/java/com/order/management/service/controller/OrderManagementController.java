@@ -64,9 +64,9 @@ public class OrderManagementController {
 	 * @param id - the order id from the request
 	 * @return OrderResponse
 	 */
-	@RequestMapping(value = "/cancelOrder/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<OrderResponse> cancelOrder(@PathVariable("id") long id) {
-		return omHandler.cancelOrder(id);
+	@RequestMapping(value = "/cancelOrder/{username}/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<OrderResponse> cancelOrder(@PathVariable(name = "username") String userName,@PathVariable("id") long id) {
+		return omHandler.cancelOrder(userName, id);
 	}
 	
 	/**
