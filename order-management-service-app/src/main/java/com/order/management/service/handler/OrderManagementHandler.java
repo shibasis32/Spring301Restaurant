@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 
 import com.order.management.service.model.request.OrderRequest;
 import com.order.management.service.model.request.UpdateOrderRequest;
-import com.order.management.service.model.response.OrderDetailsResponse;
 import com.order.management.service.model.response.OrderResponse;
 
 /**
@@ -23,5 +22,5 @@ public interface OrderManagementHandler {
 
 	public ResponseEntity<OrderResponse> cancelOrder(String userName, long id);
 
-	public ResponseEntity<OrderDetailsResponse> viewOrders(String userName, int startIndex, int endIndex);
+	public ResponseEntity<OrderResponse> viewOrders(String userName, int startIndex, int endIndex);
 }

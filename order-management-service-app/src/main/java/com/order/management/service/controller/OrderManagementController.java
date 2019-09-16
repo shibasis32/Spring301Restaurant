@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.order.management.service.handler.OrderManagementHandler;
 import com.order.management.service.model.request.OrderRequest;
 import com.order.management.service.model.request.UpdateOrderRequest;
-import com.order.management.service.model.response.OrderDetailsResponse;
 import com.order.management.service.model.response.OrderResponse;
 
 import io.swagger.annotations.Api;
@@ -78,7 +77,7 @@ public class OrderManagementController {
 	 * @return OrderResponse
 	 */
 	@RequestMapping(value = "/viewOrder/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<OrderDetailsResponse> viewOrders(@PathVariable(name = "username", required = true) String userName, @RequestParam(name = "pagenum", defaultValue = "0") int pageNumber, @RequestParam(name = "size", defaultValue = "0") int size) {
+	public ResponseEntity<OrderResponse> viewOrders(@PathVariable(name = "username", required = true) String userName, @RequestParam(name = "pagenum", defaultValue = "0") int pageNumber, @RequestParam(name = "size", defaultValue = "0") int size) {
 		return omHandler.viewOrders(userName, pageNumber, size);
 	}
 }

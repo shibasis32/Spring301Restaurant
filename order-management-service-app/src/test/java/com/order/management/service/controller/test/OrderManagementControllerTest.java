@@ -21,7 +21,6 @@ import com.order.management.service.controller.OrderManagementController;
 import com.order.management.service.handler.OrderManagementHandler;
 import com.order.management.service.model.request.OrderRequest;
 import com.order.management.service.model.request.UpdateOrderRequest;
-import com.order.management.service.model.response.OrderDetailsResponse;
 import com.order.management.service.model.response.OrderResponse;
 
 
@@ -97,7 +96,7 @@ public class OrderManagementControllerTest {
 		String userName = "username";
 		int startIndex = 0;
 		int endIndex = 10;
-		ResponseEntity<OrderDetailsResponse> responseEntity = new ResponseEntity<>(HttpStatus.OK);
+		ResponseEntity<OrderResponse> responseEntity = new ResponseEntity<>(HttpStatus.OK);
 		when(testHandler.viewOrders(Mockito.anyString(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(responseEntity);
 		assertNotNull(testController.viewOrders(userName, startIndex, endIndex));
 	}

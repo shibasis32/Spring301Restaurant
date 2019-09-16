@@ -16,7 +16,6 @@ import com.order.management.service.exception.InvalidRequest;
 import com.order.management.service.handler.OrderManagementHandler;
 import com.order.management.service.model.request.OrderRequest;
 import com.order.management.service.model.request.UpdateOrderRequest;
-import com.order.management.service.model.response.OrderDetailsResponse;
 import com.order.management.service.model.response.OrderResponse;
 import com.order.management.service.service.OrderManagementService;
 
@@ -112,16 +111,16 @@ public class OrderManagementHandlerImpl implements OrderManagementHandler{
 	 * @return OrderDetailsResponse
 	 */
 	@Override
-	public ResponseEntity<OrderDetailsResponse> viewOrders(String userName, int pageNumber, int size) {
+	public ResponseEntity<OrderResponse> viewOrders(String userName, int pageNumber, int size) {
 		if(userName == null || StringUtils.isEmpty(userName)) {
 			InvalidRequest ir = new InvalidRequest("Please provide the user name to view the orders in your cart.");
 			log.error(ir.getMessage());
 			throw ir;
 		}
 		log.info("Calling the service to view orders for the userName: {}", userName);
-		OrderDetailsResponse response = omService.viewOrders(userName, pageNumber, size);
+		OrderResponse response = omService.viewOrders(userName, pageNumber, size);
 		log.info("Getting the list of orders from the service: {}", response);
-		return new ResponseEntity<OrderDetailsResponse>(response, HttpStatus.OK);
+		return new ResponseEntity<OrderResponse>(response, HttpStatus.OK);
 	}
 
 }

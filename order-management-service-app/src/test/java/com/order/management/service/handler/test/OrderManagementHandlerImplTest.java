@@ -22,7 +22,6 @@ import com.order.management.service.exception.InvalidRequest;
 import com.order.management.service.handler.impl.OrderManagementHandlerImpl;
 import com.order.management.service.model.request.OrderRequest;
 import com.order.management.service.model.request.UpdateOrderRequest;
-import com.order.management.service.model.response.OrderDetailsResponse;
 import com.order.management.service.model.response.OrderResponse;
 import com.order.management.service.service.impl.OrderManagementServiceImpl;
 
@@ -146,7 +145,7 @@ public class OrderManagementHandlerImplTest {
 	 */
 	@Test
 	public void viewOrders() {
-		OrderDetailsResponse response = new OrderDetailsResponse();
+		OrderResponse response = new OrderResponse();
 		String name = "user name";
 		when(testService.viewOrders(Mockito.anyString(), Mockito.anyInt(), Mockito.anyInt())).thenReturn(response);
 		assertNotNull(testHandler.viewOrders(name, 0, 10));

@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +26,6 @@ import com.order.management.service.exception.OrderNotFound;
 import com.order.management.service.model.OrderDetails;
 import com.order.management.service.model.request.OrderRequest;
 import com.order.management.service.model.request.UpdateOrderRequest;
-import com.order.management.service.model.response.OrderDetailsResponse;
 import com.order.management.service.model.response.OrderResponse;
 import com.order.management.service.model.rest.response.ItemWrapperResponse;
 import com.order.management.service.modeler.OrderManagementModerler;
@@ -61,6 +61,8 @@ public class OrderManagementServiceImpl implements OrderManagementService {
 	 */
 	@Autowired
 	private RestClient restClient;
+	
+	private List<OrderDetails> ordersList  = new ArrayList<>();;
 
 	/**
 	 * This method will place the order requested by user and save it to the DB.
@@ -82,6 +84,7 @@ public class OrderManagementServiceImpl implements OrderManagementService {
 			log.info("Saving the order into the DB");
 			order = omsRepository.save(order);
 			omsRepository.flush();
+			ordersList.add(order);
 		} catch (Exception e) {
 			RuntimeException re = new RuntimeException("Error placing the order", e);
 			log.error(re.getMessage());
@@ -89,6 +92,7 @@ public class OrderManagementServiceImpl implements OrderManagementService {
 		}
 		log.info("The order was placed successfully with the order number: {}", order.getOrderDetailsId());
 		response.setMessage("The order was placed successfully!!! Enjoy maadi");
+		response.setOrderList(ordersList);
 		return response;
 	}
 
@@ -115,6 +119,7 @@ public class OrderManagementServiceImpl implements OrderManagementService {
 			order.setTotalPrice(priceList);
 			order.setPlacedOrderDate(new Date());
 			order.setOrderStatus("Active");
+			ordersList.add(order);
 			log.info("Updating the order into the DB for the order ID: {}", order.getOrderDetailsId());
 				order = omsRepository.save(order);
 			} catch (Exception e) {
@@ -124,6 +129,7 @@ public class OrderManagementServiceImpl implements OrderManagementService {
 			}
 			log.info("The order was updated successfully for the order number: {}", order.getOrderDetailsId());
 			response.setMessage("The order was updated successfully!!! Enjoy maadi");
+			response.setOrderList(ordersList);
 		}
 		return response;
 	}
@@ -133,7 +139,7 @@ public class OrderManagementServiceImpl implements OrderManagementService {
 	 * DB.
 	 */
 	@Override
-	@CachePut(value = "orderDetails", key = "#userName")
+	@CacheEvict(value = "orderDetails", key = "#userName, #id")
 	public OrderResponse cancelOrder(String userName, long id) {
 		OrderResponse response = new OrderResponse();
 		Optional<OrderDetails> getOrder = omsRepository.findByUserNameAndOrderDetailsId(userName, id);
@@ -161,9 +167,9 @@ public class OrderManagementServiceImpl implements OrderManagementService {
 	 * This method will get the orders list for a specific user.
 	 */
 	@Override
-	@Cacheable(value = "orderDetails", key = "#userName")
-	public OrderDetailsResponse viewOrders(String userName, int pageNumber, int pageSize) {
-		OrderDetailsResponse response = new OrderDetailsResponse();
+	@Cacheable(value = "orders", key = "#userName")
+	public OrderResponse viewOrders(String userName, int pageNumber, int pageSize) {
+		OrderResponse response = new OrderResponse();
 		List<OrderDetails> getOrder = new ArrayList<>();
 		try {
 			log.info("Calling the db to get list of orders for the user");
@@ -187,6 +193,7 @@ public class OrderManagementServiceImpl implements OrderManagementService {
 		List<OrderDetails> orders = getOrder.stream().filter(p -> !p.getOrderStatus().equalsIgnoreCase("CANCELED"))
 				.collect(Collectors.toList());
 		response.setOrderList(orders);
+		response.setMessage("Please view the order details");
 		return response;
 	}
 
