@@ -119,7 +119,7 @@ public class OrderManagementHandlerImpl implements OrderManagementHandler{
 		}
 		log.info("Calling the service to view orders for the userName: {}", userName);
 		OrderResponse response = omService.viewOrders(userName, pageNumber, size);
-		log.info("Getting the list of orders from the service: {}", response);
+		log.info("Getting the list of orders from the service: {}");
 		return new ResponseEntity<OrderResponse>(response, HttpStatus.OK);
 	}
 

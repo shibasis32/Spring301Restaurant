@@ -80,7 +80,7 @@ public class RestaurantSearchHandlerImpl implements RestaurantSearchHandler {
 			restaurants = rsService.getByLocation(request.getLocation(), pageNumber, pageSize);
 			restaurantsDto = restaurants.stream().map(restaurant -> convertToDto(restaurant))
 					.collect(Collectors.toList());
-			log.info("Getting all Restaurants from service by location: {}", restaurantsDto);
+			log.info("Getting all Restaurants from service by location: {}");
 			break;
 		case DISTANCE:
 			log.info("Calling service to get list of restaurants by getDistance: {}", request.getDistance());
@@ -90,7 +90,7 @@ public class RestaurantSearchHandlerImpl implements RestaurantSearchHandler {
 			restaurants = rsService.getByDistance(request.getDistance(), pageNumber, pageSize);
 			restaurantsDto = restaurants.stream().map(restaurant -> convertToDto(restaurant))
 					.collect(Collectors.toList());
-			log.info("Getting all Restaurants from service by Distance: {}", restaurantsDto);
+			log.info("Getting all Restaurants from service by Distance: {}");
 			break;
 		case RATING:
 			log.info("Calling service to get list of restaurants by getRatings: {}", request.getRatings());
@@ -100,7 +100,7 @@ public class RestaurantSearchHandlerImpl implements RestaurantSearchHandler {
 			restaurants = rsService.getByRatings(request.getRatings(), pageNumber, pageSize);
 			restaurantsDto = restaurants.stream().map(restaurant -> convertToDto(restaurant))
 					.collect(Collectors.toList());
-			log.info("Getting all Restaurants from service by Rating: {}", restaurantsDto);
+			log.info("Getting all Restaurants from service by Rating: {}");
 			break;
 		case BUDGET:
 			log.info("Calling service to get list of restaurants by getBudget: {}", request.getBudget());
@@ -110,7 +110,7 @@ public class RestaurantSearchHandlerImpl implements RestaurantSearchHandler {
 			restaurants = rsService.getByBudget(request.getBudget(), pageNumber, pageSize);
 			restaurantsDto = restaurants.stream().map(restaurant -> convertToDto(restaurant))
 					.collect(Collectors.toList());
-			log.info("Getting all Restaurants from service by Budget: {}", restaurantsDto);
+			log.info("Getting all Restaurants from service by Budget: {}");
 			break;
 		case CUISINE:
 			log.info("Calling service to get list of restaurants by getCuisine: {}", request.getCuisine());
@@ -120,7 +120,7 @@ public class RestaurantSearchHandlerImpl implements RestaurantSearchHandler {
 			restaurants = rsService.getByCuisine(request.getCuisine(), pageNumber, pageSize);
 			restaurantsDto = restaurants.stream().map(restaurant -> convertToDto(restaurant))
 					.collect(Collectors.toList());
-			log.info("Getting all Restaurants from service by Cuisine: {}", restaurantsDto);
+			log.info("Getting all Restaurants from service by Cuisine: {}");
 			break;
 		case NAME:
 			log.info("Calling service to get list of restaurants by getName: {}", request.getName());
@@ -130,7 +130,7 @@ public class RestaurantSearchHandlerImpl implements RestaurantSearchHandler {
 			restaurants = rsService.getByName(request.getName(), pageNumber, pageSize);
 			restaurantsDto = restaurants.stream().map(restaurant -> convertToDto(restaurant))
 					.collect(Collectors.toList());
-			log.info("Getting all Restaurants from service by Name: {}", restaurantsDto);
+			log.info("Getting all Restaurants from service by Name: {}");
 			break;
 		case ITEMNAME:
 			log.info("Calling service to get list of restaurants by getItemName: {}", request.getItemName());
@@ -140,14 +140,14 @@ public class RestaurantSearchHandlerImpl implements RestaurantSearchHandler {
 			restaurants = rsService.getByItem(request.getItemName(), pageNumber, pageSize);
 			restaurantsDto = restaurants.stream().map(restaurant -> convertToDto(restaurant))
 					.collect(Collectors.toList());
-			log.info("Getting all Restaurants from service by Item: {}", restaurantsDto);
+			log.info("Getting all Restaurants from service by Item: {}");
 			break;
 		case ALL:
 			log.info("Calling service to get all restaurants");
 			restaurants = rsService.getRestaurants(pageNumber, pageSize);
 			restaurantsDto = restaurants.stream().map(restaurant -> convertToDto(restaurant))
 					.collect(Collectors.toList());
-			log.info("Getting all Restaurants from service: {}", restaurantsDto);
+			log.info("Getting all Restaurants from service: {}");
 			break;
 		}
 		response.setRestaurants(restaurantsDto);

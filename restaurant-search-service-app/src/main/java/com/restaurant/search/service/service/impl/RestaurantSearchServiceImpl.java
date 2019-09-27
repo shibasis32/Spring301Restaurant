@@ -55,7 +55,7 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 	/**
 	 * This method will get the restaurant details coming from the dao layer.
 	 */
-	@Cacheable(value = "restaurantsName")
+	@Cacheable(value = "restaurants")
 	@Override
 	public List<Restaurant> getRestaurants(int pageNumber, int pageSize)
 			throws RestaurantNotFound {
@@ -68,7 +68,7 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 			} else {
 				restaurants = rsRepository.findAll();
 			}
-			log.info("list of restaurants after fetching from DB: {}", restaurants);
+			log.info("list of restaurants after fetching from DB: {}");
 		} catch (Exception e) {
 			RuntimeException re = new RuntimeException("Unknown Exception occured while fetching the data.", e); 
 			log.error("Exception occured in Service class: {}", re.getMessage());
@@ -98,7 +98,7 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 			} else {
 				restaurants = rsRepository.findByLocation(location);
 			}
-			log.info("list of restaurants after fetching from DB: {}", restaurants);
+			log.info("list of restaurants after fetching from DB: {}");
 		} catch (RuntimeException e) {
 			RuntimeException re = new RuntimeException("Unknown Exception occured while fetching the data.", e); 
 			log.error("Exception occured in Service class: {}", re.getMessage());
@@ -128,7 +128,7 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 			} else {
 				restaurants = rsRepository.findByDistance(distance);
 			}
-			log.info("list of restaurants after fetching from DB: {}", restaurants);
+			log.info("list of restaurants after fetching from DB: {}");
 		} catch (RuntimeException e) {
 			RuntimeException re = new RuntimeException("Unknown Exception occured while fetching the data.", e); 
 			log.error("Exception occured in Service class: {}", re.getMessage());
@@ -158,7 +158,7 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 			} else {
 				restaurants = rsRepository.findByRatings(ratings);
 			}
-			log.info("list of restaurants after fetching from DB: {}", restaurants);
+			log.info("list of restaurants after fetching from DB: {}");
 		} catch (RuntimeException e) {
 			RuntimeException re = new RuntimeException("Unknown Exception occured while fetching the data.", e); 
 			log.error("Exception occured in Service class: {}", re.getMessage());
@@ -188,7 +188,7 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 			} else {
 				restaurants = rsRepository.findByCuisine(cuisine);
 			}
-			log.info("list of restaurants after fetching from DB: {}", restaurants);
+			log.info("list of restaurants after fetching from DB: {}");
 		} catch (RuntimeException e) {
 			RuntimeException re = new RuntimeException("Unknown Exception occured while fetching the data.", e); 
 			log.error("Exception occured in Service class: {}", re.getMessage());
@@ -218,7 +218,7 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 			} else {
 				restaurants = rsRepository.findByName(name);
 			}
-			log.info("list of restaurants after fetching from DB: {}", restaurants);
+			log.info("list of restaurants after fetching from DB: {}");
 		} catch (RuntimeException e) {
 			RuntimeException re = new RuntimeException("Unknown Exception occured while fetching the data.", e); 
 			log.error("Exception occured in Service class: {}", re.getMessage());
@@ -248,7 +248,7 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 			} else {
 				restaurants = iRepository.findByItemName(itemName);
 			}
-			log.info("list of restaurants after fetching from DB: {}", restaurants);
+			log.info("list of restaurants after fetching from DB: {}");
 		} catch (RuntimeException e) {
 			RuntimeException re = new RuntimeException("Unknown Exception occured while fetching the data.", e); 
 			log.error("Exception occured in Service class: {}", re.getMessage());
@@ -278,7 +278,7 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 			} else {
 				restaurants = rsRepository.findByBudget(budget);
 			}
-			log.info("list of restaurants after fetching from DB: {}", restaurants);
+			log.info("list of restaurants after fetching from DB: {}");
 		} catch (RuntimeException e) {
 			RuntimeException re = new RuntimeException("Unknown Exception occured while fetching the data.", e); 
 			log.error("Exception occured in Service class: {}", re.getMessage());
@@ -304,7 +304,7 @@ public class RestaurantSearchServiceImpl implements RestaurantSearchService {
 		try {
 			log.info("fetching item prices based on item id's: {}", itemIds);
 			itemPrices = iRepository.findItemPrices(itemIds);
-			log.info("list of item prices after fetching from DB: {}", itemPrices);
+			log.info("list of item prices after fetching from DB: {}");
 		} catch (RuntimeException e) {
 			RuntimeException re = new RuntimeException("Unknown Exception occured while fetching the data.", e); 
 			log.error("Exception occured in Service class: {}", re.getMessage());
